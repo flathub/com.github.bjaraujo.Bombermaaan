@@ -3,6 +3,9 @@ runtime: org.freedesktop.Platform
 runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: bombermaaan
+rename-icon: bombermaaan
+rename-desktop-file: bombermaaan.desktop
+rename-appdata-file: bombermaaan.appdata.xml
 finish-args:
   - --socket=wayland
   - --socket=fallback-x11
@@ -11,10 +14,6 @@ finish-args:
   - --device=dri
 
 modules:
-  - shared-modules/glu/glu-9.json
-  - shared-modules/SDL/SDL-1.2.15.json
-  - shared-modules/SDL/SDL_mixer-1.2.12.json
-
   - name: bombermaaan
     buildsystem: cmake-ninja
     subdir: trunk
@@ -27,15 +26,14 @@ modules:
       - ln -sv ../share/Bombermaaan/bombermaaan ${FLATPAK_DEST}/bin/bombermaaan
       - cp -r res/{images,sounds} ${FLATPAK_DEST}/share/Bombermaaan
       - cp -r levels ${FLATPAK_DEST}/share/Bombermaaan
-      - install -Dm 0644 ../installers/bombermaaan.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
-      - desktop-file-edit --set-key="Icon" --set-value="${FLATPAK_ID}" "${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop"
-      - install -Dm 0644 ../installers/bombermaaan.png ${FLATPAK_DEST}/share/icons/hicolor/32x32/apps/${FLATPAK_ID}.png
-      - install -Dm 0644 ../installers/bombermaaan.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
-      - install -Dm 0644 ../installers/bombermaaan.appdata.xml ${FLATPAK_DEST}/share/appdata/${FLATPAK_ID}.appdata.xml
+      - install -Dm 0644 ../installers/bombermaaan.desktop ${FLATPAK_DEST}/share/applications/bombermaaan.desktop
+      - install -Dm 0644 ../installers/bombermaaan.png ${FLATPAK_DEST}/share/icons/hicolor/32x32/apps/bombermaaan.png
+      - install -Dm 0644 ../installers/bombermaaan.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/bombermaaan.svg
+      - install -Dm 0644 ../installers/bombermaaan.appdata.xml ${FLATPAK_DEST}/share/appdata/bombermaaan.appdata.xml
     sources:
       - type: git
         url: https://github.com/bjaraujo/Bombermaaan.git
-        tag: v2.2.5.2226
-        commit: d420e9098aab5b5545d7dfdc30f5f89d1208e0fd
+        tag: v2.2.8.2275
+        commit: 3657cb8356ad4520cbdcb3c79d9ab4ed07a7e0bd
       - type: patch
-        path: appdata.patch
+        path: appstream.patch
